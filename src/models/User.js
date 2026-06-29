@@ -19,6 +19,8 @@ const authSchema = new mongoose.Schema({
         enum: ['user', 'admin'],
         default: "user"
     },
+     otp: String,
+    otpExpiry: Date,
   },
    {timestamps: true}
 );
