@@ -19,10 +19,11 @@ const authSchema = new mongoose.Schema({
         enum: ['user', 'admin'],
         default: "user"
     },
-     otp: String,
+    otp: String,
     otpExpiry: Date,
-  },
-   {timestamps: true}
+},
+    { timestamps: true }
 );
 
-export default mongoose.model('User', authSchema)
+export default mongoose.models.User ||
+    mongoose.model("User", authSchema);
