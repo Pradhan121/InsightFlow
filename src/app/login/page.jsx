@@ -30,7 +30,7 @@ export default function Login() {
     onSubmit: async (values) => {
       const res = await loginUser(values)
       if (res.success) {
-        toast.success('Login Successfully!')
+        toast.success(res.message)
         router.push('/dashboard')
       } else {
         toast.error(res.message)
