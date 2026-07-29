@@ -1,12 +1,16 @@
 import { resetPassword } from "@/services/authService";
-import { Button, TextField } from "@mui/material";
+import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
 export default function ResetPassword() {
-    const [showPassword, setShowPassword] = useState(false)
+    const [newPassword, setNewPassword] = useState(false)
+    const [confirmPassword, setConfirmPassword] = useState(false)
     const router = useRouter()
     const searchParams = useSearchParams()
     const email = searchParams.get("email")
@@ -18,22 +22,32 @@ export default function ResetPassword() {
             newPassword: Yup.string().required("Enter New Password"),
             confirmPassword: Yup.string().required("Enter Confirm Password")
         }),
-        onSubmit: async (values) => {
+        onSubmit: async (values, {resetForm}) => {
             const res = await resetPassword(email, otp, values.newPassword, values.confirmPassword)
             if (res.success) {
-                toast.success(res.message)
+                toast.success("Password Reset Successfully!")
                 router.push('/login')
+                resetForm()
             }
             else {
                 toast.error(res.message)
             }
         }
     })
+
+    const handleClickNewPassword = () => {
+        setNewPassword((prev) => !prev)
+    }
+
+    const handleClickConfirmPassword = () => {
+        setConfirmPassword((prev) => !prev)
+    }
+
     return (
         <>
             <form action="" onSubmit={formik.handleSubmit}>
                 <TextField
-                    type={showPassword ? 'text' : 'password'}
+                    type={newPassword ? 'text' : 'password'}
                     placeholder="New Password"
                     value={formik.values.newPassword}
                     onChange={formik.handleChange}
@@ -46,10 +60,10 @@ export default function ResetPassword() {
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton
-                                        onClick={handleClickShowPassword}
+                                        onClick={handleClickNewPassword}
                                         edge="end"
                                     >
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        {newPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
                             ),
@@ -57,7 +71,7 @@ export default function ResetPassword() {
                     }}
                 />
                 <TextField
-                    type={showPassword ? 'text' : 'password'}
+                    type={confirmPassword ? 'text' : 'password'}
                     placeholder="Confirm Password"
                     value={formik.values.confirmPassword}
                     onChange={formik.handleChange}
@@ -70,10 +84,10 @@ export default function ResetPassword() {
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton
-                                        onClick={handleClickShowPassword}
+                                        onClick={handleClickConfirmPassword}
                                         edge="end"
                                     >
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        {confirmPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
                             ),
