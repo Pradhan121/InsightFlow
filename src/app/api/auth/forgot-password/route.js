@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { ConnectDB } from "@/lib/mongodb";
 import User from "@/models/User";
-import { resend } from "@/lib/resend";
+import { transporter } from "@/lib/nodemailer";
 
 export async function POST(req) {
   try {
@@ -28,23 +28,25 @@ export async function POST(req) {
     await user.save();
 
     // Send Email
-    await resend.emails.send({
-      from: "noreply@yourdomain.com",
-      to: user.email,
-      subject: "Password Reset OTP",
-      html: `
-        <h2>Hello ${user.name}</h2>
-        <p>Your OTP is</p>
+    await transporter.sendMail({
+    from: `"InsightFlow" <${process.env.EMAIL_USER}>`,
+    to: user.email,
+    subject: "Password Reset OTP",
+    html: `
+        
+    `,
+});
 
-        <h1>${otp}</h1>
-
-        <p>This OTP is valid for 5 minutes.</p>
-      `,
-    });
+    if (error) {
+        return NextResponse.json({
+            status: "Fail",
+            message: error.message
+        }, { status: 500 });
+    }
 
     return NextResponse.json({
-      status: "Success",
-      message: "OTP Sent Successfully",
+        status: true,
+        message: "OTP Sent Successfully",
     });
 
   } catch (err) {
