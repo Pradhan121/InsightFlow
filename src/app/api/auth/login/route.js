@@ -8,14 +8,14 @@ export async function POST(req) {
   try {
     await ConnectDB();
 
-    const { email, password } = await req.json();
+    const { username, password } = await req.json();
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
 
     if (!user) {
       return NextResponse.json(
         {
-          status: "Fail",
+          status: false,
           message: "Invalid Credentials",
         },
         { status: 401 }
@@ -27,7 +27,7 @@ export async function POST(req) {
     if (!isMatch) {
       return NextResponse.json(
         {
-          status: "Fail",
+          status: false,
           message: "Invalid Credentials",
         },
         { status: 401 }
@@ -62,7 +62,7 @@ export async function POST(req) {
   } catch (err) {
     return NextResponse.json(
       {
-        status: "Fail",
+        status: false,
         message: err.message,
       },
       { status: 500 }

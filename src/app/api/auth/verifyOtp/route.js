@@ -23,6 +23,7 @@ export async function POST(req) {
   if (user.otp !== otp) {
     return NextResponse.json(
       {
+        status: false,
         message:"Invalid OTP"
       },
       {
@@ -43,6 +44,7 @@ export async function POST(req) {
   }
 
   return NextResponse.json({
+    status: true,
     message: "OTP Verified",
   });
 }

@@ -11,6 +11,7 @@ export async function POST(req) {
     const { email } = await req.json();
 
     const user = await User.findOne({ email });
+    
 
     if (!user) {
       return NextResponse.json(
@@ -33,16 +34,17 @@ export async function POST(req) {
     to: user.email,
     subject: "Password Reset OTP",
     html: `
+      <div style = 'font-family: Arial, padding:20px'>
+       <h2>Hello ${user.username}</h2>
+       <h3>Your OTP is <strong> ${otp}</strong></h3>
+       <h4>This OTP is valid for 5 minutes.</h4>
+       <p><strong>Please don't share this OTP with anyone</strong></p>
+       <h3>Team</h3>
+       <h2>InsightFlow</h2>
+      </div>
         
     `,
 });
-
-    if (error) {
-        return NextResponse.json({
-            status: "Fail",
-            message: error.message
-        }, { status: 500 });
-    }
 
     return NextResponse.json({
         status: true,
