@@ -22,14 +22,14 @@ export default function Login() {
   const router = useRouter()
 
   const formik = useFormik({
-    initialValues: { email: "", password: "" },
+    initialValues: { username: "", password: "" },
     validationSchema: Yup.object({
-      email: Yup.string().email('Invalid email address').required('Email is required'),
+      username: Yup.string().required('username is required'),
       password: Yup.string().required('Password is required')
     }),
     onSubmit: async (values) => {
       const res = await loginUser(values)
-      if (res.success) {
+      if (res.status) {
         toast.success(res.message)
         router.push('/dashboard')
       } else {
@@ -106,21 +106,21 @@ export default function Login() {
 
           <form className="mt-8 space-y-5" onSubmit={formik.handleSubmit}>
 
-            {/* Email Field */}
+            {/* username Field */}
             <div>
               <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-                Email
+                username
               </label>
               <TextField
-                type="email"
+                type="username"
                 placeholder="name@company.com"
-                autoComplete="email"
-                name='email'
-                value={formik.values.email}
+                autoComplete="off"
+                name='username'
+                value={formik.values.username}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
+                error={formik.touched.username && Boolean(formik.errors.username)}
+                helperText={formik.touched.username && formik.errors.username}
                 className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all text-sm placeholder:text-slate-300 text-slate-700"
               />
             </div>
@@ -133,7 +133,7 @@ export default function Login() {
               <TextField
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
-                autoComplete="current-password"
+                autoComplete="new-password"
                 name='password'
                 value={formik.values.password}
                 onChange={formik.handleChange}
