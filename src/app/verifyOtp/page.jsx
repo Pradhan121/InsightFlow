@@ -1,11 +1,14 @@
+'use client'
+
 import { verifyOtp } from "@/services/authService";
-import { Button, TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "react-toastify";
 import * as Yup from 'yup'
 
 
-export default function VerifyOtp(){
+export default function VerifyOtp() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const email = searchParams.get("email")
@@ -15,35 +18,154 @@ export default function VerifyOtp(){
             otp: ""
         },
         validationSchema: Yup.object({
-            otp: Yup.number().required("Enter OTP")
+            otp: Yup.string()
+                .length(6, "OTP must be 6 digits")
+                .required("Enter OTP")
         }),
-        onSubmit: async(values)=>{
-            const res = await verifyOtp(email, values.otp)
-            if(res.success){
-                toast.success(res.message)
-                router.push(`/reset-password?email=${email}&otp=${otp}`);
-            }
-            else{
-                toast.error(res.message)
-            }
-        }
+        onSubmit: async (values) => {
+    const res = await verifyOtp({
+        email: email,
+        otp: values.otp
+    });
+
+    if (res.status) {
+        toast.success(res.message);
+        sessionStorage.setItem('resetOtp', values.otp)
+        sessionStorage.setItem('userEmail', email)
+        router.push(
+            `/reset-password`
+        );
+    } else {
+        toast.error(res.message);
+    }
+}
     })
-    return(
-        <>
-           <form onSubmit={formik.handleSubmit}>
-              <TextField
-                type='number'
-                placeholder="Enter OTP"
-                name="otp"
-                value={formik.values.otp}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.otp && Boolean(formik.errors.otp)}
-                helperText={formik.touched.otp && formik.errors.otp}
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all text-sm placeholder:text-slate-300 text-slate-700"
-              />
-              <Button type="submit">Verify OTP</Button>
-           </form>
-        </>
-    )
+    return (
+        <Dialog
+            open={true}
+            maxWidth="xs"
+            fullWidth
+            slotProps={{
+                paper: {
+                    sx: {
+                        borderRadius: 3,
+                        p: 1,
+                    },
+                },
+            }}
+        >
+            <DialogTitle
+                sx={{
+                    textAlign: "center",
+                    fontWeight: 700,
+                    fontSize: "28px",
+                    pb: 1,
+                }}
+            >
+                Verify OTP
+            </DialogTitle>
+
+            <DialogContent sx={{ pt: 2 }}>
+                <Typography
+                    align="center"
+                    color="text.secondary"
+                    sx={{ mb: 1 }}
+                >
+                    Enter the OTP sent to
+                </Typography>
+
+                <Typography
+                    align="center"
+                    sx={{
+                        color: "#2563EB",
+                        fontWeight: 600,
+                        mb: 3,
+                        wordBreak: "break-all",
+                    }}
+                >
+                    {email}
+                </Typography>
+
+                <form onSubmit={formik.handleSubmit}>
+                    <TextField
+                        fullWidth
+                        label="Enter OTP"
+                        name="otp"
+                        value={formik.values.otp}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.otp && Boolean(formik.errors.otp)}
+                        helperText={formik.touched.otp && formik.errors.otp}
+                        slotProps={{
+                            htmlInput: {
+                                maxLength: 6,
+                                inputMode: "numeric",
+                            },
+                        }}
+                        sx={{
+                            "& .MuiOutlinedInput-root": {
+                                borderRadius: "12px",
+                            },
+                        }}
+                    />
+
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{
+                            mt: 3,
+                            py: 1.4,
+                            borderRadius: 2,
+                            fontSize: "16px",
+                            textTransform: "none",
+                            fontWeight: 600,
+                        }}
+                    >
+                        Verify OTP
+                    </Button>
+
+                    <Typography
+                        align="center"
+                        sx={{
+                            mt: 3,
+                            color: "text.secondary",
+                            fontSize: "14px",
+                        }}
+                    >
+                        Didn't receive the OTP?
+                    </Typography>
+
+                    <Button
+                        fullWidth
+                        variant="text"
+                        sx={{
+                            textTransform: "none",
+                            fontWeight: 600,
+                        }}
+                    >
+                        Resend OTP
+                    </Button>
+                </form>
+            </DialogContent>
+
+            <DialogActions
+                sx={{
+                    justifyContent: "center",
+                    pb: 2,
+                }}
+            >
+                <Button
+                    variant="outlined"
+                    onClick={() => router.push("/forgot-password")}
+                    sx={{
+                        textTransform: "none",
+                        borderRadius: 2,
+                    }}
+                >
+                    Back
+                </Button>
+            </DialogActions>
+        </Dialog>
+    );
 }

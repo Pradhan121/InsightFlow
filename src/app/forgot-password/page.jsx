@@ -25,7 +25,7 @@ export default function ForgotPassword() {
       if (res.status === true) {
         toast.success(res.message);
         resetForm();
-        router.push(`/verify-otp?email=${values.email}`);
+        router.push(`/verifyOtp?email=${values.email}`);
       }
       else {
         toast.error(res.message)
@@ -79,19 +79,20 @@ export default function ForgotPassword() {
             />
 
             <Button
-              type="submit"
-              variant="contained"
-              fullWidth
-              sx={{
-                mt: 3,
-                py: 1.3,
-                borderRadius: 2,
-                textTransform: "none",
-                fontSize: "16px",
-              }}
-            >
-              Send OTP
-            </Button>
+  type="submit"
+  variant="contained"
+  fullWidth
+  disableRipple
+  sx={{
+    mt: 3,
+    py: 1.3,
+    borderRadius: 2,
+    textTransform: "none",
+    fontSize: "16px",
+  }}
+>
+  Send OTP
+</Button>
           </form>
         </DialogContent>
 

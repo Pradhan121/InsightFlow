@@ -4,40 +4,59 @@ import { ConnectDB } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  await ConnectDB();
+  try {
+    await ConnectDB();
 
-  const { email, otp, newPassword, confirmPassword } = await req.json();
+    const body = await req.json();
+    console.log("BODY:", body);
 
-  const user = await User.findOne({ email });
+    const { email, otp, newPassword, confirmPassword } = body;
 
-  if (!user) {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return NextResponse.json(
+        { message: "User Not Found" },
+        { status: 404 }
+      );
+    }
+
+    if (user.otp !== otp) {
+      return NextResponse.json({
+        message: "Invalid OTP",
+      });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return NextResponse.json(
+        { message: "Password Not Match" },
+        { status: 400 }
+      );
+    }
+
+    const hashPassword = await bcrypt.hash(newPassword, 10);
+
+    user.password = hashPassword;
+    user.otp = null;
+    user.otpExpiry = null;
+
+    await user.save();
+
     return NextResponse.json({
-      message: "User Not Found",
+      status: true,
+      message: "Password Updated Successfully",
     });
+  } catch (error) {
+    console.error("RESET PASSWORD ERROR:", error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message,
+      },
+      {
+        status: 500,
+      }
+    );
   }
-
-  if (user.otp !== otp) {
-    return NextResponse.json({
-      message: "Invalid OTP",
-    });
-  }
-
-  if (newPassword !== confirmPassword) {
-    return NextResponse.json({
-      message: "Password Not Match",
-    });
-  }
-
-  const hashPassword = await bcrypt.hash(newPassword, 10);
-
-  user.password = hashPassword;
-
-  user.otp = null;
-  user.otpExpiry = null;
-
-  await user.save();
-
-  return NextResponse.json({
-    message: "Password Updated Successfully",
-  });
 }

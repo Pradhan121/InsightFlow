@@ -16,11 +16,15 @@ export const forgotPassword = async(data) => {
 }
 
 export const verifyOtp = async(data) => {
-    const res = await api.post("/auth/verify-otp", data);
+    const res = await api.post("/auth/verifyOtp", data);
     return res.data;
 }
 
-export const resetPassword = async(data) => {
-    const res = await api.post("/auth/reset-password", data);
+export const resetPassword = async(email,otp,newPassword,confirmPassword) => {
+    const res = await api.post("/auth/reset-password",{
+        email,
+        otp,
+        newPassword,
+        confirmPassword});
     return res.data;
 }
