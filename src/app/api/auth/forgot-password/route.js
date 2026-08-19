@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { ConnectDB } from "@/lib/mongodb";
-import User from "@/models/User";
+import Auth from "@/models/Auth";
 import { transporter } from "@/lib/nodemailer";
 
 export async function POST(req) {
@@ -10,8 +10,8 @@ export async function POST(req) {
 
     const { email } = await req.json();
 
-    const user = await User.findOne({ email });
-    
+    const user = await Auth.findOne({ email });
+
 
     if (!user) {
       return NextResponse.json(
@@ -30,10 +30,10 @@ export async function POST(req) {
 
     // Send Email
     await transporter.sendMail({
-    from: `"InsightFlow" <${process.env.EMAIL_USER}>`,
-    to: user.email,
-    subject: "Password Reset OTP",
-    html: `
+      from: `"InsightFlow" <${process.env.EMAIL_USER}>`,
+      to: user.email,
+      subject: "Password Reset OTP",
+      html: `
       <div style = 'font-family: Arial, padding:20px'>
        <h2>Hello ${user.username}</h2>
        <h3>Your OTP is <strong> ${otp}</strong></h3>
@@ -44,11 +44,11 @@ export async function POST(req) {
       </div>
         
     `,
-});
+    });
 
     return NextResponse.json({
-        status: true,
-        message: "OTP Sent Successfully",
+      status: true,
+      message: "OTP Sent Successfully",
     });
 
   } catch (err) {

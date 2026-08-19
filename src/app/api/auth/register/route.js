@@ -1,5 +1,5 @@
 import { ConnectDB } from "@/lib/mongodb";
-import User from "@/models/User";
+import Auth from "@/models/Auth";
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
 
@@ -9,7 +9,7 @@ export async function POST(req) {
         await ConnectDB();
         const user = await req.json();
 
-        const existingUser = await User.findOne({ email: user.email });
+        const existingUser = await Auth.findOne({ email: user.email });
 
         if (existingUser) {
             return NextResponse.json(
@@ -22,8 +22,8 @@ export async function POST(req) {
         }
         user.password = await bcrypt.hash(user.password, 10);
 
-        const createUser = await User.create(user);
-        const newUser = await User.findById(createUser._id).select("-password");
+        const createUser = await Auth.create(user);
+        const newUser = await Auth.findById(createUser._id).select("-password");
 
         return NextResponse.json(
             {
