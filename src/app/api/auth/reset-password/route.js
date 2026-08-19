@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import User from "@/models/User";
+import Auth from "@/models/Auth";
 import { ConnectDB } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 
@@ -12,7 +12,7 @@ export async function POST(req) {
 
     const { email, otp, newPassword, confirmPassword } = body;
 
-    const user = await User.findOne({ email });
+    const user = await Auth.findOne({ email });
 
     if (!user) {
       return NextResponse.json(
