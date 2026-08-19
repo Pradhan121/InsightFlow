@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import User from "@/models/User";
+import Auth from "@/models/Auth";
 import { ConnectDB } from "@/lib/mongodb";
 
 export async function POST(req) {
@@ -7,15 +7,15 @@ export async function POST(req) {
 
   const { email, otp } = await req.json();
 
-  const user = await User.findOne({ email });
+  const user = await Auth.findOne({ email });
 
   if (!user) {
     return NextResponse.json(
       {
-        message:"User Not Found"
+        message: "User Not Found"
       },
       {
-        status:404
+        status: 404
       }
     );
   }
@@ -24,10 +24,10 @@ export async function POST(req) {
     return NextResponse.json(
       {
         status: false,
-        message:"Invalid OTP"
+        message: "Invalid OTP"
       },
       {
-        status:400
+        status: 400
       }
     );
   }
@@ -35,10 +35,10 @@ export async function POST(req) {
   if (user.otpExpiry < Date.now()) {
     return NextResponse.json(
       {
-        message:"OTP Expired"
+        message: "OTP Expired"
       },
       {
-        status:400
+        status: 400
       }
     );
   }

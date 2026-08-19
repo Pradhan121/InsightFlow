@@ -1,5 +1,5 @@
 import { ConnectDB } from "@/lib/mongodb";
-import User from "@/models/User";
+import Auth from "@/models/Auth";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
@@ -10,7 +10,7 @@ export async function POST(req) {
 
     const { username, password } = await req.json();
 
-    const user = await User.findOne({ username });
+    const user = await Auth.findOne({ username });
 
     if (!user) {
       return NextResponse.json(
@@ -39,7 +39,7 @@ export async function POST(req) {
         id: user._id,
         role: user.role,
       },
-         process.env.SECRET_KEY,
+      process.env.SECRET_KEY,
       {
         expiresIn: "15m",
       }
