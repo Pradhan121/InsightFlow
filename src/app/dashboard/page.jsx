@@ -169,8 +169,6 @@ const products = [
 export default function Dashboard() {
   return (
     <>
-      <Sidebar />
-      <Header />
 
       <main
         style={{
@@ -324,8 +322,8 @@ export default function Dashboard() {
               display: "grid",
               gridTemplateColumns: "2fr 1fr",
               gap: "22px",
-              width:"100%",
-              alignItems:'stretch',
+              width: "100%",
+              alignItems: 'stretch',
               marginBottom: "22px",
             }}
           >
@@ -337,8 +335,8 @@ export default function Dashboard() {
                 padding: "20px",
                 boxShadow:
                   "0 3px 15px rgba(15,23,42,0.05)",
-                minHeight:'350px',
-                boxSizing:'border-box'
+                minHeight: '350px',
+                boxSizing: 'border-box'
               }}
             >
               <div
@@ -519,175 +517,175 @@ export default function Dashboard() {
             </div>
 
             {/* Recent Orders */}
-          {/* Recent Orders */}
-<div
-  style={{
-    background: "#ffffff",
-    borderRadius: "12px",
-    padding: "18px 18px",
-    width: "100%",
-    minHeight: "345px",
-    boxSizing: "border-box",
-    boxShadow: "0 3px 15px rgba(15,23,42,0.05)",
-  }}
->
-  {/* Header */}
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: "14px",
-    }}
-  >
-    <h2
-      style={{
-        margin: 0,
-        fontSize: "15px",
-        fontWeight: 700,
-        color: "#0f172a",
-      }}
-    >
-      Recent Orders
-    </h2>
+            {/* Recent Orders */}
+            <div
+              style={{
+                background: "#ffffff",
+                borderRadius: "12px",
+                padding: "18px 18px",
+                width: "100%",
+                minHeight: "345px",
+                boxSizing: "border-box",
+                boxShadow: "0 3px 15px rgba(15,23,42,0.05)",
+              }}
+            >
+              {/* Header */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: "14px",
+                }}
+              >
+                <h2
+                  style={{
+                    margin: 0,
+                    fontSize: "15px",
+                    fontWeight: 700,
+                    color: "#0f172a",
+                  }}
+                >
+                  Recent Orders
+                </h2>
 
-    <span
-      style={{
-        color: "#2563eb",
-        fontSize: "10px",
-        fontWeight: 500,
-        cursor: "pointer",
-      }}
-    >
-      View All
-    </span>
-  </div>
+                <span
+                  style={{
+                    color: "#2563eb",
+                    fontSize: "10px",
+                    fontWeight: 500,
+                    cursor: "pointer",
+                  }}
+                >
+                  View All
+                </span>
+              </div>
 
-  {/* Orders */}
-  <div style={{ width: "100%" }}>
-    {orders.map((order) => (
-      <div
-        key={order.id}
-        style={{
-          display: "grid",
+              {/* Orders */}
+              <div style={{ width: "100%" }}>
+                {orders.map((order) => (
+                  <div
+                    key={order.id}
+                    style={{
+                      display: "grid",
 
-          // Avatar | ID | Name | Amount | Status
-          gridTemplateColumns: "34px 68px minmax(70px, 1fr) 65px 55px",
+                      // Avatar | ID | Name | Amount | Status
+                      gridTemplateColumns: "34px 68px minmax(70px, 1fr) 65px 55px",
 
-          alignItems: "center",
-          columnGap: "6px",
+                      alignItems: "center",
+                      columnGap: "6px",
 
-          minHeight: "48px",
+                      minHeight: "48px",
 
-          borderBottom: "1px solid #eef1f5",
-        }}
-      >
-        {/* Avatar */}
-        <div
-          style={{
-            width: "30px",
-            height: "30px",
-            borderRadius: "50%",
-            background: "#e5edff",
-            color: "#3155f5",
+                      borderBottom: "1px solid #eef1f5",
+                    }}
+                  >
+                    {/* Avatar */}
+                    <div
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                        borderRadius: "50%",
+                        background: "#e5edff",
+                        color: "#3155f5",
 
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
 
-            fontSize: "10px",
-            fontWeight: 600,
-          }}
-        >
-          {order.avatar}
-        </div>
+                        fontSize: "10px",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {order.avatar}
+                    </div>
 
-        {/* Order ID */}
-        <div
-          style={{
-            fontSize: "10px",
-            color: "#64748b",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {order.id}
-        </div>
+                    {/* Order ID */}
+                    <div
+                      style={{
+                        fontSize: "10px",
+                        color: "#64748b",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {order.id}
+                    </div>
 
-        {/* Name */}
-        <div
-          style={{
-            fontSize: "11px",
-            fontWeight: 500,
-            color: "#0f172a",
+                    {/* Name */}
+                    <div
+                      style={{
+                        fontSize: "11px",
+                        fontWeight: 500,
+                        color: "#0f172a",
 
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
-          {order.name}
-        </div>
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {order.name}
+                    </div>
 
-        {/* Amount */}
-        <div
-          style={{
-            fontSize: "10px",
-            fontWeight: 600,
-            color: "#0f172a",
-            textAlign: "right",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {order.amount}
-        </div>
+                    {/* Amount */}
+                    <div
+                      style={{
+                        fontSize: "10px",
+                        fontWeight: 600,
+                        color: "#0f172a",
+                        textAlign: "right",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {order.amount}
+                    </div>
 
-        {/* Status */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
-        >
-          <span
-            style={{
-              minWidth: "48px",
-              height: "22px",
+                    {/* Status */}
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                      }}
+                    >
+                      <span
+                        style={{
+                          minWidth: "48px",
+                          height: "22px",
 
-              padding: "0 6px",
+                          padding: "0 6px",
 
-              borderRadius: "5px",
+                          borderRadius: "5px",
 
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
 
-              fontSize: "9px",
-              fontWeight: 500,
+                          fontSize: "9px",
+                          fontWeight: 500,
 
-              whiteSpace: "nowrap",
+                          whiteSpace: "nowrap",
 
-              background:
-                order.status === "Paid"
-                  ? "#dcfce7"
-                  : order.status === "Pending"
-                  ? "#fef3c7"
-                  : "#fee2e2",
+                          background:
+                            order.status === "Paid"
+                              ? "#dcfce7"
+                              : order.status === "Pending"
+                                ? "#fef3c7"
+                                : "#fee2e2",
 
-              color:
-                order.status === "Paid"
-                  ? "#16a34a"
-                  : order.status === "Pending"
-                  ? "#d97706"
-                  : "#ef4444",
-            }}
-          >
-            {order.status}
-          </span>
-        </div>
-      </div>
-    ))}
-  </div>
-</div>
+                          color:
+                            order.status === "Paid"
+                              ? "#16a34a"
+                              : order.status === "Pending"
+                                ? "#d97706"
+                                : "#ef4444",
+                        }}
+                      >
+                        {order.status}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Bottom Tables */}
@@ -700,241 +698,241 @@ export default function Dashboard() {
           >
             {/* Recent Users */}
             {/* Recent Users */}
-<div
-  style={{
-    background: "#fff",
-    borderRadius: "12px",
-    overflow: "hidden",
-    boxShadow: "0 3px 15px rgba(15,23,42,0.05)",
-  }}
->
-  {/* Header */}
-  <div
-    style={{
-      padding: "20px",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-    }}
-  >
-    <h2
-      style={{
-        margin: 0,
-        fontSize: "17px",
-        color: "#0f172a",
-      }}
-    >
-      Recent Users
-    </h2>
-
-    <span
-      style={{
-        color: "#2563eb",
-        fontSize: "13px",
-        cursor: "pointer",
-        whiteSpace: "nowrap",
-      }}
-    >
-      View All
-    </span>
-  </div>
-
-  {/* Table Scroll Wrapper */}
-  <div
-    style={{
-      width: "100%",
-      overflowX: "auto",
-      overflowY: "hidden",
-      scrollbarWidth: "thin",
-    }}
-  >
-    <table
-      style={{
-        width: "100%",
-        minWidth: "650px",
-        borderCollapse: "collapse",
-        fontSize: "12px",
-      }}
-    >
-      <thead>
-        <tr
-          style={{
-            background: "#f8fafc",
-            color: "#64748b",
-          }}
-        >
-          <th
-            style={{
-              ...thStyle,
-              minWidth: "150px",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Name
-          </th>
-
-          <th
-            style={{
-              ...thStyle,
-              minWidth: "180px",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Email
-          </th>
-
-          <th
-            style={{
-              ...thStyle,
-              minWidth: "80px",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Role
-          </th>
-
-          <th
-            style={{
-              ...thStyle,
-              minWidth: "100px",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Status
-          </th>
-
-          <th
-            style={{
-              ...thStyle,
-              minWidth: "110px",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Joined
-          </th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {users.map((user) => (
-          <tr key={user.email}>
-            {/* Name */}
-            <td
+            <div
               style={{
-                ...tdStyle,
-                minWidth: "150px",
-                whiteSpace: "nowrap",
+                background: "#fff",
+                borderRadius: "12px",
+                overflow: "hidden",
+                boxShadow: "0 3px 15px rgba(15,23,42,0.05)",
               }}
             >
+              {/* Header */}
               <div
                 style={{
+                  padding: "20px",
                   display: "flex",
+                  justifyContent: "space-between",
                   alignItems: "center",
-                  gap: "8px",
-                  whiteSpace: "nowrap",
                 }}
               >
-                {/* Avatar */}
-                <div
+                <h2
                   style={{
-                    width: "28px",
-                    height: "28px",
-                    minWidth: "28px",
-                    borderRadius: "50%",
-                    background: "#e5edff",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#3155f5",
-                    fontSize: "10px",
-                    fontWeight: 600,
+                    margin: 0,
+                    fontSize: "17px",
+                    color: "#0f172a",
                   }}
                 >
-                  {user.name
-                    .split(" ")
-                    .map((x) => x[0])
-                    .join("")}
-                </div>
+                  Recent Users
+                </h2>
 
-                {/* Name */}
                 <span
                   style={{
+                    color: "#2563eb",
+                    fontSize: "13px",
+                    cursor: "pointer",
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {user.name}
+                  View All
                 </span>
               </div>
-            </td>
 
-            {/* Email */}
-            <td
-              style={{
-                ...tdStyle,
-                minWidth: "180px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {user.email}
-            </td>
-
-            {/* Role */}
-            <td
-              style={{
-                ...tdStyle,
-                minWidth: "80px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {user.role}
-            </td>
-
-            {/* Status */}
-            <td
-              style={{
-                ...tdStyle,
-                minWidth: "100px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              <span
+              {/* Table Scroll Wrapper */}
+              <div
                 style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "4px 9px",
-                  borderRadius: "5px",
-                  background:
-                    user.status === "Active"
-                      ? "#dcfce7"
-                      : "#fee2e2",
-                  color:
-                    user.status === "Active"
-                      ? "#16a34a"
-                      : "#ef4444",
-                  whiteSpace: "nowrap",
+                  width: "100%",
+                  overflowX: "auto",
+                  overflowY: "hidden",
+                  scrollbarWidth: "thin",
                 }}
               >
-                {user.status}
-              </span>
-            </td>
+                <table
+                  style={{
+                    width: "100%",
+                    minWidth: "650px",
+                    borderCollapse: "collapse",
+                    fontSize: "12px",
+                  }}
+                >
+                  <thead>
+                    <tr
+                      style={{
+                        background: "#f8fafc",
+                        color: "#64748b",
+                      }}
+                    >
+                      <th
+                        style={{
+                          ...thStyle,
+                          minWidth: "150px",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Name
+                      </th>
 
-            {/* Joined */}
-            <td
-              style={{
-                ...tdStyle,
-                minWidth: "110px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {user.joined}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-</div>
+                      <th
+                        style={{
+                          ...thStyle,
+                          minWidth: "180px",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Email
+                      </th>
+
+                      <th
+                        style={{
+                          ...thStyle,
+                          minWidth: "80px",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Role
+                      </th>
+
+                      <th
+                        style={{
+                          ...thStyle,
+                          minWidth: "100px",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Status
+                      </th>
+
+                      <th
+                        style={{
+                          ...thStyle,
+                          minWidth: "110px",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Joined
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {users.map((user) => (
+                      <tr key={user.email}>
+                        {/* Name */}
+                        <td
+                          style={{
+                            ...tdStyle,
+                            minWidth: "150px",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "8px",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {/* Avatar */}
+                            <div
+                              style={{
+                                width: "28px",
+                                height: "28px",
+                                minWidth: "28px",
+                                borderRadius: "50%",
+                                background: "#e5edff",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                color: "#3155f5",
+                                fontSize: "10px",
+                                fontWeight: 600,
+                              }}
+                            >
+                              {user.name
+                                .split(" ")
+                                .map((x) => x[0])
+                                .join("")}
+                            </div>
+
+                            {/* Name */}
+                            <span
+                              style={{
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {user.name}
+                            </span>
+                          </div>
+                        </td>
+
+                        {/* Email */}
+                        <td
+                          style={{
+                            ...tdStyle,
+                            minWidth: "180px",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {user.email}
+                        </td>
+
+                        {/* Role */}
+                        <td
+                          style={{
+                            ...tdStyle,
+                            minWidth: "80px",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {user.role}
+                        </td>
+
+                        {/* Status */}
+                        <td
+                          style={{
+                            ...tdStyle,
+                            minWidth: "100px",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              padding: "4px 9px",
+                              borderRadius: "5px",
+                              background:
+                                user.status === "Active"
+                                  ? "#dcfce7"
+                                  : "#fee2e2",
+                              color:
+                                user.status === "Active"
+                                  ? "#16a34a"
+                                  : "#ef4444",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {user.status}
+                          </span>
+                        </td>
+
+                        {/* Joined */}
+                        <td
+                          style={{
+                            ...tdStyle,
+                            minWidth: "110px",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {user.joined}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
             {/* Top Products */}
             <div

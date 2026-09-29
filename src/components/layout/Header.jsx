@@ -26,6 +26,7 @@ export default function Header() {
         alignItems: "center",
 
         padding: "0 28px",
+        boxSizing: "border-box",
 
         zIndex: 900,
       }}
@@ -60,7 +61,7 @@ export default function Header() {
         style={{
           position: "absolute",
 
-          left: "50%",
+          left: "45%",
           transform: "translateX(-50%)",
 
           width: "400px",
