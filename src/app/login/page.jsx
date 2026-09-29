@@ -113,7 +113,7 @@ export default function Login() {
               </label>
               <TextField
                 type="username"
-                placeholder="name@company.com"
+                placeholder="Enter your username"
                 autoComplete="off"
                 name='username'
                 value={formik.values.username}

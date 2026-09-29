@@ -63,9 +63,9 @@ export default function Register() {
                                 UserName
                             </label>
                             <TextField
-                                type="text"
+                                type="username"
                                 placeholder="Enter your username"
-                                autoComplete="username"
+                                autoComplete="off"
                                 name='username'
                                 value={formik.values.username}
                                 onChange={formik.handleChange}
@@ -104,7 +104,7 @@ export default function Register() {
                                 fullWidth
                                 type={showPassword ? "text" : "password"}
                                 placeholder="••••••••"
-                                autoComplete="current-password"
+                                autoComplete="new-password"
                                 name="password"
                                 value={formik.values.password}
                                 onChange={formik.handleChange}
